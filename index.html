@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI大模型应用案例分享</title>
+    <title>TERABOX × Axion Intelligence - AI革新プロジェクト・ポートフォリオ</title>
     <style>
         * {
             margin: 0;
@@ -12,713 +12,589 @@
         }
 
         body {
-            font-family: 'Arial', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
-            overflow: hidden;
-            line-height: 1.7;
-        }
-
-        .presentation-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-        }
-
-        .slide {
-            width: 100%;
-            height: 100%;
-            display: none;
-            padding: 60px 80px;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            background: radial-gradient(ellipse at center, #0a0a0a 0%, #1a1a1a 50%, #000000 100%);
+            min-height: 100vh;
             color: #ffffff;
-            position: absolute;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 動的背景パーティクル */
+        .particles {
+            position: fixed;
             top: 0;
             left: 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        .slide.active {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            animation: slideIn 0.6s ease-out;
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #9FD500;
+            border-radius: 50%;
+            animation: float 10s infinite linear;
+            opacity: 0.6;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
-        .slide h1 {
-            font-size: 4.4em;
-            color: #9FD500;
-            margin-bottom: 30px;
-            text-align: center;
-            border-bottom: 4px solid #9FD500;
-            padding-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .slide h2 {
-            font-size: 3.1em;
-            color: #9FD500;
-            margin-bottom: 25px;
-            border-left: 6px solid #9FD500;
-            padding-left: 20px;
-            font-weight: 700;
+        .container {
             position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        .slide h2::after {
+        /* ヘッダー */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(159, 213, 0, 0.1) 0%, rgba(26, 26, 26, 0.8) 100%);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(159, 213, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
             content: '';
             position: absolute;
-            width: 60px;
-            height: 3px;
-            bottom: -10px;
-            left: 20px;
-            background-color: #9FD500;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(159, 213, 0, 0.05), transparent);
+            animation: rotate 20s linear infinite;
         }
 
-        .slide h3 {
-            font-size: 2.25em;
-            color: #9FD500;
-            margin-bottom: 15px;
-            margin-top: 25px;
-            font-weight: 600;
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .slide p, .slide li {
-            font-size: 1.6em;
-            line-height: 1.7;
-            color: #cccccc;
-            margin-bottom: 15px;
-        }
-
-        .slide ul {
-            margin-left: 30px;
-        }
-
-        .slide li {
-            margin-bottom: 12px;
+        .header-content {
             position: relative;
+            z-index: 2;
         }
 
-        .slide li::marker {
-            color: #9FD500;
-            font-weight: bold;
+        .brand-header {
+            margin-bottom: 30px;
         }
 
-        .code-block {
-            background: #1a1a1a;
-            color: #9FD500;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #333333;
-            font-family: 'Courier New', monospace;
-            font-size: 1.1em;
-            margin: 20px 0;
-            overflow-x: auto;
+        .terabox-title {
+            font-size: 5.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #9FD500 0%, #7FB800 50%, #9FD500 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(159, 213, 0, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
+            letter-spacing: -2px;
         }
 
-        .highlight-box {
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border-left: 4px solid #9FD500;
-            color: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin: 30px 0;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border: 1px solid #9FD500;
-            color: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
+        .partnership {
+            font-size: 1.4em;
+            color: #cccccc;
             margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .partner-highlight {
             color: #9FD500;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(159, 213, 0, 0.4);
         }
 
-        .navigation {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            gap: 15px;
+        .main-title {
+            font-size: 4.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #9FD500 0%, #7FB800 50%, #9FD500 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(159, 213, 0, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
         }
 
-        .nav-btn {
-            background: linear-gradient(45deg, #9FD500, #7FB800);
-            color: #000000;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(159, 213, 0, 0.2);
-        }
-
-        .nav-btn:disabled {
-            background: #333333;
-            color: #666666;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .slide-counter {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: rgba(26, 26, 26, 0.9);
-            border: 1px solid #9FD500;
-            color: #9FD500;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 1.1em;
-            font-weight: bold;
-        }
-
-        .architecture-diagram {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 30px 0;
-        }
-
-        .arch-box {
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border: 2px solid #9FD500;
-            color: #9FD500;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            min-width: 150px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            font-weight: bold;
-        }
-
-        .arrow {
-            font-size: 2em;
-            color: #9FD500;
-            margin: 0 10px;
-        }
-
-        .title-slide {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
-            color: #ffffff;
-            text-align: center;
-        }
-
-        .title-slide h1 {
-            color: #9FD500;
-            border-bottom: 4px solid #9FD500;
-            font-size: 5em;
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(159, 213, 0, 0.5)); }
+            to { filter: drop-shadow(0 0 40px rgba(159, 213, 0, 0.8)); }
         }
 
         .subtitle {
-            font-size: 2.25em;
-            margin-top: 30px;
+            font-size: 1.8em;
+            color: #cccccc;
+            margin-bottom: 30px;
             opacity: 0.9;
-            color: #cccccc;
         }
 
-        .company-info {
-            margin-top: 50px;
-            font-size: 1.75em;
-            opacity: 0.8;
-            color: #cccccc;
-        }
-        .flowchart-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 30px 0;
-            padding: 20px;
-        }
-
-        .process-flow {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .flow-step {
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border: 2px solid #9FD500;
-            color: #9FD500;
-            padding: 15px 20px;
-            border-radius: 12px;
-            text-align: center;
-            min-width: 120px;
-            font-weight: bold;
-            font-size: 1.1em;
-            position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .flow-arrow {
-            font-size: 2em;
-            color: #9FD500;
-            margin: 0 5px;
-        }
-
-        .chart-container {
-            display: flex;
-            justify-content: space-around;
-            margin: 30px 0;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .performance-chart {
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border: 2px solid #9FD500;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            min-width: 200px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .chart-title {
-            color: #9FD500;
+        .description {
             font-size: 1.3em;
-            font-weight: bold;
-            margin-bottom: 15px;
+            color: #aaaaaa;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 20px;
-            background: #333333;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #9FD500, #7FB800);
-            border-radius: 10px;
-            transition: width 2s ease;
-        }
-
-        .process-diagram {
+        /* プロジェクトグリッド */
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 30px 0;
-            align-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
         }
 
-        .process-box {
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border: 2px solid #9FD500;
-            color: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            font-weight: bold;
-            min-height: 100px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .process-title {
-            color: #9FD500;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-
-        .comparison-chart {
-            display: flex;
-            justify-content: space-around;
-            margin: 30px 0;
-            align-items: end;
-        }
-
-        .bar-chart {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0 20px;
-        }
-
-        .bar {
-            width: 60px;
-            background: linear-gradient(180deg, #9FD500, #7FB800);
-            border-radius: 8px 8px 0 0;
-            margin-bottom: 10px;
+        .project-card {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(42, 42, 42, 0.8) 100%);
+            border: 2px solid transparent;
+            border-radius: 25px;
+            padding: 40px;
             position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transform: translateY(0);
         }
 
-        .bar-label {
-            color: #cccccc;
-            font-size: 1.1em;
-            text-align: center;
-        }
-
-        .bar-value {
+        .project-card::before {
+            content: '';
             position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #9FD500;
-            font-weight: bold;
-            font-size: 1.1em;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(159, 213, 0, 0.1) 0%, transparent 50%);
+            border-radius: 25px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: #9FD500;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(159, 213, 0, 0.2);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-header {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 25px;
+        }
+
+        .project-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #9FD500, #7FB800);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(159, 213, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .project-title {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #9FD500;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-subtitle {
+            font-size: 1.3em;
+            color: #cccccc;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-description {
+            font-size: 1.1em;
+            color: #aaaaaa;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-features {
+            list-style: none;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #cccccc;
+            font-size: 1.05em;
+        }
+
+        .project-features li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #9FD500;
+            font-size: 0.8em;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tag {
+            background: rgba(159, 213, 0, 0.1);
+            border: 1px solid rgba(159, 213, 0, 0.3);
+            color: #9FD500;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .project-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #9FD500, #7FB800);
+            color: #000000;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(159, 213, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .project-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .project-button:hover::before {
+            left: 100%;
+        }
+
+        .project-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(159, 213, 0, 0.5);
+        }
+
+        .project-button .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .project-button:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        /* フッター */
+        .footer {
+            text-align: center;
+            margin-top: 100px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(159, 213, 0, 0.2);
+            color: #888888;
+        }
+
+        .footer-text {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .footer-year {
+            color: #9FD500;
+            font-weight: 600;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .terabox-title {
+                font-size: 4em;
+            }
+            
+            .main-title {
+                font-size: 3em;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .project-card {
+                padding: 30px 25px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terabox-title {
+                font-size: 3em;
+            }
+            
+            .main-title {
+                font-size: 2.5em;
+            }
+            
+            .subtitle {
+                font-size: 1.4em;
+            }
+            
+            .project-title {
+                font-size: 1.8em;
+            }
+            
+            .partnership {
+                font-size: 1.2em;
+            }
+        }
+
+        /* ローディングアニメーション */
+        .loading {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading:nth-child(2) { animation-delay: 0.2s; }
+        .loading:nth-child(3) { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
-    <div class="presentation-container">
-        <!-- Slide 1: Title -->
-        <div class="slide active title-slide">
-            <h1>AI人材マッチングシステム</h1>
-            <p class="subtitle">高速・高精度な案件・人材最適化プラットフォーム</p>
-            <div class="company-info">
-                <p>テラボックス株式会社</p>
-                <p>2025年6月 AI技術導入事例発表</p>
-            </div>
-        </div>
+    <!-- 動的背景パーティクル -->
+    <div class="particles" id="particles"></div>
 
-        <!-- Slide 2: Business Challenge -->
-        <div class="slide">
-            <h2>ビジネス課題</h2>
-            <h3>従来の課題</h3>
-            <ul>
-                <li>営業メールの大量受信による処理遅延</li>
-                <li>履歴書と案件の手動マッチング作業の非効率性</li>
-                <li>人材スクリーニングに要する膨大な時間コスト</li>
-                <li>複数の案件に対する最適な人材選定の困難さ</li>
-            </ul>
-            
-            <div class="highlight-box">
-                <h3>解決目標</h3>
-                <p><strong>効率性と速度第一</strong> - AIによる自動化で処理時間を90%削減し、<br>
-                リアルタイムマッチングを実現する次世代システムの構築</p>
-            </div>
-        </div>
-
-        <!-- Slide 3: System Overview -->
-        <div class="slide">
-            <h2>システム全体概要</h2>
-            <h3>AI駆動型人材マッチングプラットフォーム</h3>
-            <ul>
-                <li><strong>営業メール自動処理</strong> - 受信から分類・分析まで完全自動化</li>
-                <li><strong>インテリジェント分析</strong> - 履歴書・案件情報の高精度AI解析</li>
-                <li><strong>マルチLLM対応</strong> - DeepSeek/Claude 4の無縫隙切替</li>
-                <li><strong>リアルタイム最適化</strong> - コスト・性能の動的調整</li>
-            </ul>
-
-            <div class="flowchart-container">
-                <h3>システム処理フロー</h3>
-                <div class="process-flow">
-                    <div class="flow-step">営業メール<br>受信</div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step">AI自動<br>分類</div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step">内容解析<br>抽出</div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step">DB構造化<br>保存</div>
+    <div class="container">
+        <!-- ヘッダー -->
+        <header class="header loading">
+            <div class="header-content">
+                <div class="brand-header">
+                    <h1 class="terabox-title">TERABOX</h1>
+                    <p class="partnership">in partnership with <span class="partner-highlight">Axion Intelligence UK</span></p>
                 </div>
+                <h2 class="main-title">AI革新プロジェクト</h2>
+                <p class="subtitle">次世代インテリジェントソリューション・ポートフォリオ</p>
+                <p class="description">
+                    最先端のAI技術を活用した革新的なプロジェクトをご紹介します。<br>
+                    エンタープライズ級ソリューションから先進的なマッチングシステムまで、<br>
+                    AIの可能性を最大限に引き出すプロジェクト群をご覧ください。
+                </p>
             </div>
+        </header>
 
-            <div class="architecture-diagram">
-                <div class="arch-box">営業メール</div>
-                <div class="arrow">→</div>
-                <div class="arch-box">AI分析</div>
-                <div class="arrow">→</div>
-                <div class="arch-box">マッチング</div>
-                <div class="arrow">→</div>
-                <div class="arch-box">Web表示</div>
-            </div>
-        </div>
-
-        <!-- Slide 4: Email Processing Pipeline -->
-        <div class="slide">
-            <h2>メール処理パイプライン</h2>
-            <h3>自動分類・分析システム</h3>
-            <ul>
-                <li><strong>メール受信</strong>: 営業用メールボックスからの自動取得</li>
-                <li><strong>タイプ分類</strong>: 案件依頼・履歴書・問い合わせの自動識別</li>
-                <li><strong>内容解析</strong>: LLMによる詳細情報抽出</li>
-                <li><strong>構造化保存</strong>: データベースへの最適化された格納</li>
-            </ul>
-
-            <div class="chart-container">
-                <div class="performance-chart">
-                    <div class="chart-title">処理時間最適化</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 95%"></div>
-                    </div>
-                    <p>70%短縮達成</p>
+        <!-- プロジェクトグリッド -->
+        <section class="projects-grid">
+            <!-- AIマッチングシステム -->
+            <article class="project-card loading" onclick="window.open('AI-matching.html', '_blank')">
+                <div class="project-header">
+                    <div class="project-icon">🤖</div>
+                    <h2 class="project-title">AIインテリジェントマッチングシステム</h2>
+                    <p class="project-subtitle">高精度パーソナライゼーションマッチングプラットフォーム</p>
                 </div>
-                <div class="performance-chart">
-                    <div class="chart-title">コスト削減</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 85%"></div>
-                    </div>
-                    <p>40%削減達成</p>
+                
+                <p class="project-description">
+                    先進的な機械学習アルゴリズムと自然言語処理技術を組み合わせ、ユーザーの潜在的ニーズを深層分析。多次元データマイニングにより、従来のマッチングシステムを遥かに超える精度とパーソナライゼーションを実現します。
+                </p>
+
+                <ul class="project-features">
+                    <li>深層学習ベースのユーザー行動分析</li>
+                    <li>リアルタイム適応型マッチングアルゴリズム</li>
+                    <li>多言語対応NLP処理エンジン</li>
+                    <li>高度なプライバシー保護機能</li>
+                    <li>スケーラブルなクラウドアーキテクチャ</li>
+                </ul>
+
+                <div class="project-tags">
+                    <span class="tag">機械学習</span>
+                    <span class="tag">NLP</span>
+                    <span class="tag">推薦システム</span>
+                    <span class="tag">リアルタイム処理</span>
+                    <span class="tag">プライバシーAI</span>
                 </div>
-            </div>
 
-            <div class="code-block">
-// メール分類処理のコア機能
-function classifyEmail(emailContent) {
-  const classification = await llm.analyze({
-    prompt: optimizedPrompt,
-    content: emailContent,
-    model: selectOptimalModel()
-  });
-  return structureData(classification);
-}
-            </div>
-        </div>
+                <a href="AI-matching.html" class="project-button" target="_blank">
+                    システムを体験する
+                    <span class="arrow">→</span>
+                </a>
+            </article>
 
-        <!-- Slide 5: LLM Engineering Excellence -->
-        <div class="slide">
-            <h2>プロンプトエンジニアリング最適化</h2>
-            <h3>高速化の核心技術</h3>
-            <ul>
-                <li><strong>精密なプロンプト設計</strong>: レスポンス時間を70%短縮</li>
-                <li><strong>トークン使用量最適化</strong>: コンテンツ解析による事前予測</li>
-                <li><strong>Chain-of-Thought活用</strong>: 複雑な判断プロセスの効率化</li>
-                <li><strong>Few-shot Learning</strong>: 高精度な出力の安定化</li>
-            </ul>
-
-            <div class="comparison-chart">
-                <div class="bar-chart">
-                    <div class="bar" style="height: 180px;">
-                        <div class="bar-value">従来</div>
-                    </div>
-                    <div class="bar-label">手動処理<br>90分</div>
+            <!-- エージェント協調プロジェクト -->
+            <article class="project-card loading" onclick="window.open('intelligent_agent_presentation_jp.html', '_blank')">
+                <div class="project-header">
+                    <div class="project-icon">🏢</div>
+                    <h2 class="project-title">マルチエージェント協調プラットフォーム</h2>
+                    <p class="project-subtitle">企業級インテリジェント分析ソリューション</p>
                 </div>
-                <div class="bar-chart">
-                    <div class="bar" style="height: 45px;">
-                        <div class="bar-value">現在</div>
-                    </div>
-                    <div class="bar-label">AI処理<br>2.3秒</div>
+                
+                <p class="project-description">
+                    複数のAIエージェントが連携し、企業の市場調査・分析業務を革新。PEST分析フレームワークをベースとした専門的なインサイトを自動生成し、従来数週間要していた調査を数時間で完了させる画期的なエンタープライズソリューションです。
+                </p>
+
+                <ul class="project-features">
+                    <li>マルチモーダル知識ベースによる統合分析</li>
+                    <li>PEST・SWOT等の専門フレームワーク自動適用</li>
+                    <li>TB級データの高速検索・処理能力</li>
+                    <li>98%効率向上を実現した調査プロセス</li>
+                    <li>完全トレーサブルな分析結果</li>
+                </ul>
+
+                <div class="project-tags">
+                    <span class="tag">エンタープライズAI</span>
+                    <span class="tag">マルチエージェント</span>
+                    <span class="tag">ビジネス分析</span>
+                    <span class="tag">知識管理</span>
+                    <span class="tag">自動化</span>
                 </div>
-            </div>
 
-            <div class="highlight-box">
-                <h3>性能最適化の成果</h3>
-                <p><strong>平均レスポンス時間: 2.3秒</strong><br>
-                従来手動処理の1/40の時間で高精度マッチングを実現</p>
-            </div>
-        </div>
+                <a href="intelligent_agent_presentation_jp.html" class="project-button" target="_blank">
+                    プロジェクト詳細を見る
+                    <span class="arrow">→</span>
+                </a>
+            </article>
+        </section>
 
-        <!-- Slide 6: Multi-LLM Architecture -->
-        <div class="slide">
-            <h2>マルチLLMアーキテクチャ</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">DeepSeek</div>
-                    <div>コスト効率重視<br>大量処理向け</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">Claude 4</div>
-                    <div>高精度分析<br>複雑判断向け</div>
-                </div>
-            </div>
-
-            <h3>インテリジェント切替システム</h3>
-            <ul>
-                <li><strong>コンテンツ複雑度分析</strong>: 処理内容に応じた最適モデル選択</li>
-                <li><strong>リアルタイムコスト監視</strong>: 予算に応じた動的モデル切替</li>
-                <li><strong>性能ベンチマーク</strong>: 継続的な最適化指標の監視</li>
-                <li><strong>フォールバック機能</strong>: 障害時の自動代替処理</li>
-            </ul>
-        </div>
-
-        <!-- Slide 7: Intelligent Matching Process -->
-        <div class="slide">
-            <h2>インテリジェントマッチングプロセス</h2>
-            <h3>二段階最適化システム</h3>
-            <ul>
-                <li><strong>粗選別フェーズ</strong>: 事前スクリーニングによる高速フィルタリング</li>
-                <li><strong>精密分析フェーズ</strong>: LLMによる詳細適合性評価</li>
-                <li><strong>スコアリング</strong>: 多次元評価による優先順位付け</li>
-                <li><strong>結果最適化</strong>: 継続学習による精度向上</li>
-            </ul>
-
-            <div class="process-diagram">
-                <div class="process-box">
-                    <div class="process-title">粗選別</div>
-                    <div>事前スクリーニング<br>高速フィルタリング</div>
-                </div>
-                <div class="process-box">
-                    <div class="process-title">精密分析</div>
-                    <div>LLM詳細評価<br>適合性判定</div>
-                </div>
-                <div class="process-box">
-                    <div class="process-title">最適マッチ</div>
-                    <div>スコアリング<br>優先順位付け</div>
-                </div>
-            </div>
-
-            <div class="architecture-diagram">
-                <div class="arch-box">海量データ</div>
-                <div class="arrow">→</div>
-                <div class="arch-box">粗選別</div>
-                <div class="arrow">→</div>
-                <div class="arch-box">精密分析</div>
-                <div class="arrow">→</div>
-                <div class="arch-box">最適マッチ</div>
-            </div>
-        </div>
-
-        <!-- Slide 8: Performance Metrics -->
-        <div class="slide">
-            <h2>パフォーマンス指標</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">2.3秒</div>
-                    <div>平均レスポンス時間</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">95%</div>
-                    <div>マッチング精度</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">90%</div>
-                    <div>処理時間削減</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">24/7</div>
-                    <div>自動運用体制</div>
-                </div>
-            </div>
-
-            <h3>コスト最適化成果</h3>
-            <ul>
-                <li><strong>トークン使用量削減</strong>: 事前分析により40%のコスト削減</li>
-                <li><strong>処理効率向上</strong>: 並列処理により3倍の throughput 実現</li>
-                <li><strong>人的工数削減</strong>: 手動作業を95%自動化</li>
-            </ul>
-        </div>
-
-        <!-- Slide 9: Technology Stack & Innovation -->
-        <div class="slide">
-            <h2>技術スタック・イノベーション</h2>
-            <h3>核心技術要素</h3>
-            <ul>
-                <li><strong>高度なプロンプトエンジニアリング</strong>: 業界トップレベルの最適化技法</li>
-                <li><strong>動的モデル選択</strong>: コンテンツ・コスト・性能の三軸最適化</li>
-                <li><strong>構造化データ管理</strong>: 高速検索・分析のためのDB設計</li>
-                <li><strong>リアルタイム監視</strong>: 性能・コストの継続的最適化</li>
-            </ul>
-
-            <div class="highlight-box">
-                <h3>競争優位性</h3>
-                <p><strong>プロンプトエンジニアリングの卓越性</strong><br>
-                一般的なLLM活用と比較して10倍の処理速度と60%のコスト削減を実現</p>
-            </div>
-        </div>
-
-        <!-- Slide 10: Business Impact & Future -->
-        <div class="slide">
-            <h2>ビジネスインパクト・今後の展開</h2>
-            <h3>定量的成果</h3>
-            <ul>
-                <li><strong>処理能力向上</strong>: 日次処理件数が従来の20倍に拡大</li>
-                <li><strong>品質向上</strong>: マッチング成功率が85%から95%に向上</li>
-                <li><strong>顧客満足度</strong>: レスポンス時間短縮により98%の高評価</li>
-                <li><strong>収益性改善</strong>: 運営コスト50%削減、売上30%向上</li>
-            </ul>
-
-            <div class="highlight-box">
-                <h3>今後の戦略</h3>
-                <p><strong>AI-First企業への進化</strong><br>
-                高速性・効率性を核とした次世代人材マッチングプラットフォームのグローバル展開</p>
-            </div>
-
-            <p style="text-align: center; margin-top: 40px; font-size: 1.9em; font-weight: bold; color: #9FD500;">
-                ご清聴ありがとうございました
+        <!-- フッター -->
+        <footer class="footer">
+            <p class="footer-text">
+                <span class="footer-year">2025</span> <strong>TERABOX</strong> × <strong class="partner-highlight">Axion Intelligence UK</strong>
             </p>
-        </div>
-    </div>
-
-    <div class="slide-counter">
-        <span id="current-slide">1</span> / <span id="total-slides">10</span>
-    </div>
-
-    <div class="navigation">
-        <button class="nav-btn" id="prev-btn" onclick="previousSlide()">前へ</button>
-        <button class="nav-btn" id="next-btn" onclick="nextSlide()">次へ</button>
+            <p>最先端技術で未来を創造する</p>
+        </footer>
     </div>
 
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
+        // パーティクル背景の生成
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
 
-        document.getElementById('total-slides').textContent = totalSlides;
-
-        function showSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = n;
-            
-            if (currentSlide >= totalSlides) currentSlide = 0;
-            if (currentSlide < 0) currentSlide = totalSlides - 1;
-            
-            slides[currentSlide].classList.add('active');
-            document.getElementById('current-slide').textContent = currentSlide + 1;
-            
-            document.getElementById('prev-btn').disabled = currentSlide === 0;
-            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
-        }
-
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                showSlide(currentSlide + 1);
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
             }
         }
 
-        function previousSlide() {
-            if (currentSlide > 0) {
-                showSlide(currentSlide - 1);
-            }
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                previousSlide();
-            }
+        // ページ読み込み時のアニメーション
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // 要素を順次表示
+            const loadingElements = document.querySelectorAll('.loading');
+            loadingElements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.style.animationDelay = '0s';
+                    element.classList.add('loaded');
+                }, index * 200);
+            });
         });
 
-        // Initialize
-        showSlide(0);
+        // プロジェクトカードのクリックイベント
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 視差効果
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.header');
+            const speed = scrolled * 0.5;
+            
+            parallax.style.transform = `translateY(${speed}px)`;
+        });
     </script>
 </body>
 </html>
